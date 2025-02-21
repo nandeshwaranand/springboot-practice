@@ -2,8 +2,11 @@ package com.springbootpractice.service;
 
 import com.springbootpractice.dto.request.UserAccountRequest;
 import com.springbootpractice.entity.UserAccount;
+import com.springbootpractice.exception.UserNotFoundException;
 import com.springbootpractice.respository.UserAccountRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserAccountService {
@@ -15,8 +18,12 @@ public class UserAccountService {
         this.userAccountRepository = userAccountRepository;
     }
 
+    public List<UserAccount> getAllUsers() {
+        return userAccountRepository.findAll();
+    }
+
     public UserAccount getUserAccountByUserId(Long userId){
-        return userAccountRepository.findById(userId).orElseThrow();
+        return userAccountRepository.findById(userId).orElseThrow(()-> new UserNotFoundException("User not found with user id:"+userId));
     }
 
     public Object createUserAccount(UserAccountRequest userAccountRequest) {

@@ -4,8 +4,11 @@ import com.springbootpractice.constants.Constants;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "user_account", schema = Constants.AUTH_SCHEMA)
+@Table(name = "user_account", schema = Constants.AUTH_SCHEMA,
+        uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,7 +17,7 @@ import lombok.*;
 public class UserAccount {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
     private String firstName;
@@ -23,5 +26,12 @@ public class UserAccount {
 
     private String mobile;
 
+    @Column(unique = true)
     private String username;
+
+    @Transient // Not stored in the DB
+    private int age;
+
+    @OneToMany
+    private List<Roles> roles; // One User can have multiple roles records.
 }
