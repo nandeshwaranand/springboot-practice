@@ -14,7 +14,6 @@ public class PracticeController {
 
     private final QualifierService qualifierService;
 
-
     public PracticeController(PrimaryService primaryService, QualifierService qualifierService) {
         this.primaryService = primaryService;
         this.qualifierService = qualifierService;

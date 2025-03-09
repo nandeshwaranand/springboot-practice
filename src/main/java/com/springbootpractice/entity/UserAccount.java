@@ -7,7 +7,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "user_account", schema = Constants.AUTH_SCHEMA,
+@Table(name = "user_account", schema = Constants.USER_SCHEMA,
         uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
 @Getter
 @Setter
@@ -18,7 +18,7 @@ public class UserAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long userAccountId;
 
     private String firstName;
 
