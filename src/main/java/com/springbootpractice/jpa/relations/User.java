@@ -1,7 +1,6 @@
 package com.springbootpractice.jpa.relations;
 
 import com.springbootpractice.constants.Constants;
-import com.springbootpractice.entity.UserAccount;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
