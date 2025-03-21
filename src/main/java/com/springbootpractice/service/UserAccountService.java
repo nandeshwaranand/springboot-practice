@@ -1,6 +1,7 @@
 package com.springbootpractice.service;
 
 import com.springbootpractice.dto.request.UserAccountRequest;
+import com.springbootpractice.dto.response.UserAccountResponse;
 import com.springbootpractice.entity.UserAccount;
 import com.springbootpractice.exception.UserNotFoundException;
 import com.springbootpractice.respository.UserAccountRepository;
@@ -23,11 +24,12 @@ public class UserAccountService {
     }
 
     public UserAccount getUserAccountByUserId(Long userId){
-        return userAccountRepository.findById(userId).orElseThrow(()-> new UserNotFoundException("User not found with user id:"+userId));
+       return userAccountRepository.findById(userId).orElseThrow(()-> new UserNotFoundException("User not found with user id:"+userId));
     }
 
-    public Object createUserAccount(UserAccountRequest userAccountRequest) {
-        return userAccountRepository.save(buildUserAccount(userAccountRequest));
+    public UserAccountResponse createUserAccount(UserAccountRequest userAccountRequest) {
+        UserAccount userAccount = userAccountRepository.save(buildUserAccount(userAccountRequest));
+        return buildUserAccountResponse(userAccount);
     }
 
     private UserAccount buildUserAccount(UserAccountRequest userAccountRequest){
@@ -36,6 +38,15 @@ public class UserAccountService {
                 .lastName(userAccountRequest.getLastName())
                 .mobile(userAccountRequest.getMobile())
                 .username(userAccountRequest.getUsername())
+                .build();
+    }
+
+    private UserAccountResponse buildUserAccountResponse(UserAccount userAccount){
+        return UserAccountResponse.builder()
+                .firstName(userAccount.getFirstName())
+                .lastName(userAccount.getLastName())
+                .mobile(userAccount.getMobile())
+                .username(userAccount.getUsername())
                 .build();
     }
 }
