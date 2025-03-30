@@ -3,6 +3,8 @@ package com.springbootpractice.components;
 import com.springbootpractice.controller.UserController;
 import com.springbootpractice.dto.response.UserAccountResponse;
 import com.springbootpractice.entity.UserAccount;
+import lombok.NonNull;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class UserAccountResponseAssembler implements RepresentationModelAssembler<UserAccount, UserAccountResponse> {
 
     @Override
+    @NonNull
     public UserAccountResponse toModel(UserAccount entity) {
         UserAccountResponse userAccountResponse = buildUserAccountResponse(entity);
         userAccountResponse.add(linkTo(methodOn(UserController.class).getUserById(entity.getUserAccountId())).withSelfRel());
